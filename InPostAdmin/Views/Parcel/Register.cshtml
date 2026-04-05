@@ -1,0 +1,28 @@
+@model InPostAdmin.ViewModels.RegisterParcelViewModel   
+
+@{ ViewData["Title"] = "Register"; }
+
+<main class="content">
+    <h2>Register Shipment</h2>
+    
+    <form asp-action="Register" method="post" class="cyber-form">
+        
+        <div class="input-group">
+            <label asp-for="TrackingNumber">Tracking Number</label>
+            <input asp-for="TrackingNumber" class="input-cyber" placeholder="PL23456789" />
+            <span asp-validation-for="TrackingNumber"></span>
+        </div>
+        
+        <div class="input-group">
+            <label asp-for="RecipientName">Recipient Name</label>
+            <input asp-for="RecipientName" class="input-cyber" placeholder="Full Name">
+            <span asp-validation-for="RecipientName"></span>
+        </div>
+        
+        <div class="input-group">
+            <label asp-for="Status">Initial Status</label>
+            <select asp-for="Status" asp-items="Html.GetEnumSelectList<InPostAdmin.Models.ParcelStatus>()"></select>
+        </div>
+        <button type="submit" class="btn-glow">Create Record</button>
+    </form>
+</main>

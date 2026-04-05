@@ -1,0 +1,31 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>@ViewData["Title"] | Core InPost</title>
+    <link rel="stylesheet" href="~/css/site.css">
+</head>
+<body class="dashboard">
+<header class="main-header">
+    <div class="logo">InPost<span>2026</span></div>
+    <nav class="top-nav">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/Parcel/Parcels">Parcels</a></li>
+            <li><a href="/Parcel/Register">Register</a></li>
+            <li><a href="/Home/Support">Support</a></li>
+        </ul>
+    </nav>
+</header>
+
+@RenderBody()
+
+<footer class="main-footer">
+    <p>&copy; 2026 InPost Logistics. Backend Operator: Partrick Jane (Lacosta_Lac) @User.Identity.Name</p>
+</footer>
+    
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,79 @@
+@using InPostAdmin.Common.Helpers
+@model List<InPostAdmin.ViewModels.ParcelViewModel>
+
+@{ ViewData["Title"] = "Parcels Monitoring"; }
+
+<main class="content">
+    <h2>Transaction Monitoring</h2>
+    <section class="table-controls">
+        <div class="stats-counter">
+            <span class="label">Total Assets:</span>
+            <span class="count">@Model.Count</span>
+        </div>
+
+        <div class="filter-group">
+            <a asp-action="Parcels" asp-route-status="" class="btn-filter @(ViewBag.CurrentStatus is null ? "active" : "")">Wszystkie</a>
+            @foreach (ParcelStatus status in Enum.GetValues(typeof(ParcelStatus)))
+            {
+                bool isActive = ViewBag.CurrentStatus is not null && (ParcelStatus)ViewBag.CurrentStatus == status;
+                
+                <a asp-action="Parcels" asp-route-status="@status" class="btn-filter @(isActive ? "active" : "")">@status.GetMetadata().Text</a>
+            }
+        </div>
+
+        <form asp-action="Search" method="get" class="search-form">
+            <div class="search-form">
+                <input type="text" id="trackingInput" name="trackingNumber" placeholder="12345..." class="input-cyber" oninput="handleInput(this)" />
+                <button type="submit" class="btn-filter">Szukaj</button>
+            </div>
+        </form>
+    </section>
+    <div class="table-wrapper">
+        <table class="cyber-table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Recipient</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var p in Model)
+            {    
+                <tr class="row-main" onclick="this.nextElementSibling.classList.toggle('show')">
+                    <td>@p.TrackingNumber</td>
+                    <td>@p.RecipientName</td>
+                    <td><span class="card-status" style="--current-glow: @p.StatusColor; color: @p.StatusColor">
+                        @p.DisplayStatus
+                    </span></td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn-more">Details ▾</button>
+                            
+                            @await Html.PartialAsync("_StatusActions", p)
+                            
+                            <form asp-action="DeleteParcel" method="post" style="display:inline;">
+                                <input type="hidden" name="id" value="@p.Id" />
+                                <button type="submit" class="btn-delete" onclick="return confirm('Czy na pewno chcesz usunąć ten pakiet?')">Delete</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="row-details">
+                    <td colspan="4">
+                        <div class="details-content">
+                            <p><strong>System ID:</strong> @p.Id</p>
+                            <p><strong>Created At:</strong> @p.CreatedAt.ToShortDateString()</p>
+                            <p><strong>Status:</strong> @p.DisplayStatus (@p.SystemStatus)</p>
+                        </div>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</main>
+@section Scripts {
+    <script src="~/js/parcel-search.js"></script>
+}

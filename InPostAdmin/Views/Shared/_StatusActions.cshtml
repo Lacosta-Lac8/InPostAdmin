@@ -1,0 +1,25 @@
+@using InPostAdmin.Models
+@model InPostAdmin.ViewModels.ParcelViewModel
+
+@if (Model.SystemStatus != nameof(ParcelStatus.Delivered))
+{
+    <form asp-action="UpdateStatus" method="post" style="display:inline;">
+        <input type="hidden" name="id" value="@Model.Id" />
+
+        @if (Model.SystemStatus == nameof(ParcelStatus.Created))
+        {
+            <input type="hidden" name="newStatus" value="@ParcelStatus.InTransit" />
+            <button type="submit" class="btn-status-next">Przyqotuj</button>
+        }
+        else if (Model.SystemStatus == nameof(ParcelStatus.InTransit))
+        {
+            <input type="hidden" name="newStatus" value="@ParcelStatus.Ready" />
+            <button type="submit" class="btn-status-next">Wysłać</button>
+        }
+        else if (Model.SystemStatus == nameof(ParcelStatus.Ready))
+        {
+            <input type="hidden" name="newStatus" value="@ParcelStatus.Delivered" />
+            <button type="submit" class="btn-status-next">Dostarczyć</button>
+        }
+    </form>
+}
