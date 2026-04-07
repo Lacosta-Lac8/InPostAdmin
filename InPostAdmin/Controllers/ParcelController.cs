@@ -23,7 +23,7 @@ public class ParcelController : BaseController
         var viewModels = ParcelMapper.ToViewModelList(domainParcels);
         return View(viewModels);
     }
-    
+
     [HttpGet]
     public IActionResult Register() => View();
 
@@ -32,53 +32,41 @@ public class ParcelController : BaseController
     {
         if (!ModelState.IsValid) return View(vm);
 
-        try
-        {
-            var newParcel = ParcelMapper.ToDomain(vm);
-
-            _parcelService.Add(newParcel);
-            return RedirectToAction(nameof(Parcels));
-        }
-        catch (Exception ex) when (ex is ArgumentException or KeyNotFoundException)
-        {
-            ModelState.AddModelError(nameof(vm.TrackingNumber), ex.Message);
-            return View(vm);
-        }
-        catch (Exception)
-        {
-            ModelState.AddModelError(string.Empty, "A critical error occured while saving.");
-            return View(vm);
-        }
+        return ExecuteWithValidation(
+            action: () =>
+            {
+                var domainParcel = ParcelMapper.ToDomain(vm);
+                _parcelService.Add(domainParcel);
+            },
+            successResult: RedirectToAction(nameof(Parcels)),
+            errorResult: (msg) =>
+            { 
+                ModelState.AddModelError(string.Empty, msg);
+                return View(vm);
+            }
+        );
     }
 
-    [HttpPost]
-    public IActionResult DeleteParcel(Guid id)
+    public IActionResult Search(string trackingNumber)
     {
-        return ExecuteWithNotification(() => _parcelService.Delete(id), "Parcel successfully removed from the system.",
-            nameof(Parcels));
-    }
+        if (string.IsNullOrWhiteSpace(trackingNumber)) return RedirectToAction(nameof(Parcels));
 
-    public IActionResult Search(string number)
-    {
-        if (string.IsNullOrWhiteSpace(number)) return RedirectToAction(nameof(Parcels));
 
-        var trackingNumber = new TrackingNumber(number);
-        var domainResult = _parcelService.GetByNumber(trackingNumber);
-        List<ParcelViewModel> resultsList = new();
+        return ExecuteQuery(
+            query: () =>
+            {
+                var tn = new TrackingNumber(trackingNumber);
+                return _parcelService.GetByNumber(tn);
+            },
+            successView: (domainResult) =>
+            {
+                var resultsList = new List<ParcelViewModel>();
 
-        if (domainResult is not null)
-        {
-            ParcelViewModel viewModel = ParcelMapper.ToViewModel(domainResult);
-            resultsList.Add(viewModel);
-        }
+                if (domainResult is not null) resultsList.Add(ParcelMapper.ToViewModel(domainResult));
 
-        return View(nameof(Parcels), resultsList);
-    }
-
-    [HttpPost]
-    public IActionResult UpdateStatus(Guid id, ParcelStatus newStatus)
-    {
-        return ExecuteWithNotification(() => _parcelService.UpdateStatus(id, newStatus), "Parcel status has been updated.",
-            nameof(Parcels));
+                return View(nameof(Parcels), resultsList);
+            },
+            errorRedirectAction: nameof(Parcels)
+        );
     }
 }

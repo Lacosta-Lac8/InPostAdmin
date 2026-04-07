@@ -96,3 +96,4 @@ D:\Rider_project\InPostAdmin\InPostAdmin\obj\Debug\net10.0\InPostAdmin.genruntim
 D:\Rider_project\InPostAdmin\InPostAdmin\obj\Debug\net10.0\ref\InPostAdmin.dll
 D:\Rider_project\InPostAdmin\InPostAdmin\obj\Debug\net10.0\compressed\y7uhiaemaa-{0}-rr6sddwmdt-rr6sddwmdt.gz
 D:\Rider_project\InPostAdmin\InPostAdmin\obj\Debug\net10.0\compressed\by2obtr3zi-{0}-55avawwpvw-55avawwpvw.gz
+D:\Rider_project\InPostAdmin\InPostAdmin\obj\Debug\net10.0\InPostAdmin.sourcelink.json

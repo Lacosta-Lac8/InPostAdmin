@@ -3,7 +3,7 @@
 
 @if (Model.SystemStatus != nameof(ParcelStatus.Delivered))
 {
-    <form asp-action="UpdateStatus" method="post" style="display:inline;">
+    <form asp-controller="Admin" asp-action="UpdateStatus" method="post" style="display:inline;">
         <input type="hidden" name="id" value="@Model.Id" />
 
         @if (Model.SystemStatus == nameof(ParcelStatus.Created))

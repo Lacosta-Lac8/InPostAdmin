@@ -43,4 +43,22 @@ public abstract class BaseController : Controller
             return RedirectToAction(errorRedirectAction);
         }
     }
+
+    protected IActionResult ExecuteWithValidation(Action action, IActionResult successResult,
+        Func<string, IActionResult> errorResult)
+    {
+        try
+        {
+            action();
+            return successResult;
+        }
+        catch (Exception ex) when (ex is ArgumentException or KeyNotFoundException)
+        {
+            return errorResult(ex.Message);
+        }
+        catch (Exception)
+        {
+            return errorResult("Wystąpił ktytyczny błąd systemu");
+        }
+    }
 }

@@ -1,3 +1,5 @@
+using System.Text.RegularExpressions;
+
 namespace InPostAdmin.Models;
 
 public readonly struct TrackingNumber
@@ -8,9 +10,12 @@ public readonly struct TrackingNumber
     {
         if (string.IsNullOrWhiteSpace(rawNumber)) throw new ArgumentException("Numer przesyłki nie może być pusty.");
 
-        var processed = rawNumber.Trim().ToUpper();
-        if (!processed.StartsWith("PL")) processed = "PL" + processed;
-        _value = processed;
+        var normalized = rawNumber.Trim().ToUpper();
+        if (Regex.IsMatch(normalized, @"^\d+$") || !normalized.StartsWith("PL"))
+        {
+            normalized = "PL" + normalized;
+        }
+        _value = normalized;
     }
 
     public override string ToString() => _value;
