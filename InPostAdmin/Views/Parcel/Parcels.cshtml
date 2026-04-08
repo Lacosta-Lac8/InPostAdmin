@@ -51,14 +51,16 @@
                         <div class="action-buttons">
                             <button class="btn-more">Details ▾</button>
                             
-                            @if (User.IsInRole("Administrator"))
+                            @if (User.Identity.IsAuthenticated && User.IsInRole("Administrator"))
                             {
-                                @await Html.PartialAsync("_StatusActions", p)
-                                
-                                <form asp-controller="Admin" asp-action="DeleteParcel" method="post" style="display:inline;">
-                                    <input type="hidden" name="id" value="@p.Id" />
-                                    <button type="submit" class="btn-delete" onclick="return confirm('Czy na pewno chcesz usunąć ten pakiet?')">Delete</button>
-                                </form>
+                                <div class="admin-actions">
+                                    @await Html.PartialAsync("_StatusActions", p)
+                                    
+                                    <form asp-controller="Admin" asp-action="DeleteParcel" method="post" style="display:inline;">
+                                        <input type="hidden" name="id" value="@p.Id" />
+                                        <button type="submit" class="btn-delete" onclick="return confirm('Czy na pewno chcesz usunąć ten pakiet?')">Delete</button>
+                                    </form>
+                                </div>
                             }
                         </div>
                     </td>

@@ -18,15 +18,22 @@ public class AdminController : BaseController
     [HttpPost]
     public IActionResult DeleteParcel(Guid id)
     {
-        return ExecuteWithNotification(() => _parcelService.Delete(id), "Parcel successfully removed from the system.",
-            RedirectToAction(nameof(ParcelController.Parcels)));
+        return ExecuteWithNotification(
+            action: () => _parcelService.Delete(id),
+            "Parcel successfully removed from the system.",
+            actionName: "Parcels",
+            controllerName: "Parcel"
+        );
     }
     
     [HttpPost]
     public IActionResult UpdateStatus(Guid id, ParcelStatus newStatus)
     {
-        return ExecuteWithNotification(() => _parcelService.UpdateStatus(id, newStatus),
+        return ExecuteWithNotification(
+            action: () => _parcelService.UpdateStatus(id, newStatus),
             "Parcel status has been updated.",
-            RedirectToAction(nameof(ParcelController.Parcels)));
+            actionName: "Parcels",
+            controllerName: "Parcel"
+        );
     }
 }

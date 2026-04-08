@@ -5,7 +5,7 @@ namespace InPostAdmin.Controllers;
 
 public abstract class BaseController : Controller
 {
-    protected IActionResult ExecuteWithNotification(Action action, string successMessage, string redirectAction)
+    protected IActionResult ExecuteWithNotification(Action action, string successMessage, string actionName, string controllerName = null)
     {
         try
         {
@@ -21,11 +21,11 @@ public abstract class BaseController : Controller
             TempData[WebConstants.ErrorMessage] = "A critical system error occurred. Please contact support.";
         }
 
-        return RedirectToAction(redirectAction);
+        return RedirectToAction(actionName, controllerName);
     }
 
     protected IActionResult ExecuteQuery<T>(Func<T> query, Func<T, IActionResult> successView,
-        string errorRedirectAction)
+        string errorRedirectAction, string errorRedirectController = null)
     {
         try
         {
@@ -35,12 +35,12 @@ public abstract class BaseController : Controller
         catch (Exception ex) when (ex is ArgumentException or KeyNotFoundException)
         {
             TempData[WebConstants.ErrorMessage] = ex.Message;
-            return RedirectToAction(errorRedirectAction);
+            return RedirectToAction(errorRedirectAction, errorRedirectController);
         }
         catch (Exception)
         {
             TempData[WebConstants.ErrorMessage] = "A critical system error occurred.";
-            return RedirectToAction(errorRedirectAction);
+            return RedirectToAction(errorRedirectAction, errorRedirectController);
         }
     }
 

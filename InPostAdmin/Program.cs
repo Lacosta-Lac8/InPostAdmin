@@ -9,6 +9,14 @@ builder.Services.AddSingleton<IParcelRepository, ParcelRepository>();
 builder.Services.AddSingleton<IParcelService, ParcelService>();
 builder.Services.AddHostedService<ParcelStatusWorker>();
 
+builder.Services.AddAuthentication("CookieAuth")
+    .AddCookie("CookieAuth", config =>
+    {
+        config.Cookie.Name = "User.Cookie";
+        config.LoginPath = "/Account/Login";
+    });
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -22,6 +30,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();

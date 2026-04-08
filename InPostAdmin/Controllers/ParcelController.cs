@@ -38,7 +38,7 @@ public class ParcelController : BaseController
                 var domainParcel = ParcelMapper.ToDomain(vm);
                 _parcelService.Add(domainParcel);
             },
-            successResult: RedirectToAction(nameof(Parcels)),
+            successResult: RedirectToAction(nameof(Parcels), "Parcel"),
             errorResult: (msg) =>
             { 
                 ModelState.AddModelError(string.Empty, msg);

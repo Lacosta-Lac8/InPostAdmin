@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("InPostAdmin")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ae9057da5f374ade0216a2b1d3ae49627b3de016")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+07e6addecf7c2632b6fcb8e967de0b0b6167a451")]
 [assembly: System.Reflection.AssemblyProductAttribute("InPostAdmin")]
 [assembly: System.Reflection.AssemblyTitleAttribute("InPostAdmin")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
