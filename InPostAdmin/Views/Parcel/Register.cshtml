@@ -9,7 +9,7 @@
         
         <div class="input-group">
             <label asp-for="TrackingNumber">Tracking Number</label>
-            <input asp-for="TrackingNumber" class="input-cyber" placeholder="PL23456789" />
+            <input asp-for="TrackingNumber" class="input-cyber tracking-input" placeholder="PL23456789" />
             <span asp-validation-for="TrackingNumber"></span>
         </div>
         
@@ -26,3 +26,8 @@
         <button type="submit" class="btn-glow">Create Record</button>
     </form>
 </main>
+@section Scripts {
+    <script src="~/js/tracking-provider.js" asp-append-version="true"></script>
+    
+    <partial name="_ValidationScriptsPartial" />
+}

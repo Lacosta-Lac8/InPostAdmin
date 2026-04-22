@@ -94,6 +94,6 @@ D:\Rider_project\InPostAdmin\InPostAdmin\obj\Debug\net10.0\refint\InPostAdmin.dl
 D:\Rider_project\InPostAdmin\InPostAdmin\obj\Debug\net10.0\InPostAdmin.pdb
 D:\Rider_project\InPostAdmin\InPostAdmin\obj\Debug\net10.0\InPostAdmin.genruntimeconfig.cache
 D:\Rider_project\InPostAdmin\InPostAdmin\obj\Debug\net10.0\ref\InPostAdmin.dll
-D:\Rider_project\InPostAdmin\InPostAdmin\obj\Debug\net10.0\compressed\y7uhiaemaa-{0}-rr6sddwmdt-rr6sddwmdt.gz
 D:\Rider_project\InPostAdmin\InPostAdmin\obj\Debug\net10.0\compressed\by2obtr3zi-{0}-55avawwpvw-55avawwpvw.gz
 D:\Rider_project\InPostAdmin\InPostAdmin\obj\Debug\net10.0\InPostAdmin.sourcelink.json
+D:\Rider_project\InPostAdmin\InPostAdmin\obj\Debug\net10.0\compressed\8mbqu3tb4w-{0}-2q91wmm5ju-2q91wmm5ju.gz

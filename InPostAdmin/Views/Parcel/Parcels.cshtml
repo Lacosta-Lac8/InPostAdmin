@@ -23,7 +23,7 @@
 
         <form asp-action="Search" method="get" class="search-form">
             <div class="search-form">
-                <input type="text" id="trackingInput" name="trackingNumber" placeholder="12345..." class="input-cyber" oninput="handleInput(this)" />
+                <input type="text" id="trackingInput" name="trackingNumber" placeholder="12345..." class="input-cyber" />
                 <button type="submit" class="btn-filter">Szukaj</button>
             </div>
         </form>
@@ -80,5 +80,5 @@
     </div>
 </main>
 @section Scripts {
-    <script src="~/js/parcel-search.js"></script>
+    <script src="~/js/tracking-provider.js" asp-append-version="true"></script>
 }

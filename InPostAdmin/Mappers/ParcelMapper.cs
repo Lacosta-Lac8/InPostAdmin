@@ -27,7 +27,7 @@ public class ParcelMapper
     {
         return new Parcel
         {
-            TrackingNumber = vm.TrackingNumber,
+            TrackingNumber = new TrackingNumber(vm.TrackingNumber),
             RecipientName = vm.RecipientName,
             Status = vm.Status
         };
