@@ -1,7 +1,4 @@
-using InPostAdmin.Models;
-using InPostAdmin.Interfaces;
-
-namespace InPostAdmin.Services;
+namespace InPostAdmin.Repositories;
 
 public class ParcelRepository : IParcelRepository
 {

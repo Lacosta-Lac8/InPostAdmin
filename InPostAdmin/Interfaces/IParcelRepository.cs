@@ -1,4 +1,3 @@
-using InPostAdmin.Models;
 namespace InPostAdmin.Interfaces;
 
 public interface IParcelRepository

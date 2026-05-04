@@ -51,7 +51,7 @@
                         <div class="action-buttons">
                             <button class="btn-more">Details ▾</button>
                             
-                            @if (User.Identity.IsAuthenticated && User.IsInRole("Administrator"))
+                            @if ((await AuthorizationService.AuthorizeAsync(User, "AdminOnly")).Succeeded)
                             {
                                 <div class="admin-actions">
                                     @await Html.PartialAsync("_StatusActions", p)

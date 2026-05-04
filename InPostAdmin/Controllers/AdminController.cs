@@ -9,11 +9,13 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace InPostAdmin.Controllers;
 
-[Authorize(Roles = "Administrator")]
+[Authorize(Policy = "AdminOnly")]
 public class AdminController : BaseController
 {
     private readonly IParcelService _parcelService;
+    private readonly ILogger<AdminController> _logger;
     public AdminController(IParcelService parcelService) => _parcelService = parcelService;
+    public AdminController(ILogger<AdminController> logger) => _logger = logger;
     
     [HttpPost]
     public IActionResult DeleteParcel(Guid id)
@@ -35,5 +37,14 @@ public class AdminController : BaseController
             actionName: "Parcels",
             controllerName: "Parcel"
         );
+    }
+
+    [Authorize(Policy = "AdminOnly")]
+    [HttpPost]
+    public IActionResult CreateParcel(Parcel model)
+    {
+        _logger.LogInformation("Action: CreateParcel. User: {User}. Tracking: {Number}",
+            User.Identity.Name, model.TrackingNumber);
+        return Ok();
     }
 }
