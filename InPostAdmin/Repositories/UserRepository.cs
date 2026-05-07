@@ -2,7 +2,7 @@ using System.Text.Json;
 
 namespace InPostAdmin.Repositories;
 
-public class UserRepository
+public class UserRepository : IUserRepository
 {
     private readonly string _filePath = "users.json";
     private static readonly object _fileLock = new();

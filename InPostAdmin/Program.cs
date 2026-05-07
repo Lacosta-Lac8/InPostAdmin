@@ -8,14 +8,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IParcelRepository, ParcelRepository>();
 builder.Services.AddSingleton<IParcelService, ParcelService>();
+builder.Services.AddSingleton<IUserRepository, UserRepository>();
 builder.Services.AddHostedService<ParcelStatusWorker>();
-
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("AdminOnly", policy =>
         policy.RequireRole("Admin"));
 });
-
 builder.Services.AddAuthentication("CookieAuth")
     .AddCookie("CookieAuth", config =>
     {
